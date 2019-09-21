@@ -1,0 +1,2 @@
+# myAutoHotKeys
+My AutoHotKey config
