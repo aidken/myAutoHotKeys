@@ -1,0 +1,3 @@
+^NumpadDot::
+Send, ,
+return
