@@ -12,6 +12,10 @@ return
 Send , =
 return
 
++NumpadSub::
+Send , _
+return
+
 +NumpadDiv::
 Send , (
 return
