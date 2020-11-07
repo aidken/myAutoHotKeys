@@ -45,9 +45,9 @@ NumpadDel::
 Send , {shift up}{,}{shift down}
 return
 
-; do nothing upon alt + Esc
-!Esc::
-return
+; ; do nothing upon alt + Esc
+; !Esc::
+; return
 
 ; Shift Numpad Plus shows an equal sign
 +NumpadAdd::
@@ -135,4 +135,16 @@ Return
 
 CapsLock & v::
     Send , ^v
+Return
+
+!Esc::
+    Send , {LWinDown}{Space down}{Space up}{LWinUp}
+Return
+
+!`::
+    Send , {LWinDown}{Space down}{Space up}{LWinUp}
+Return
+
+!Sc29::
+    Send , {LWinDown}{Space down}{Space up}{LWinUp}
 Return
