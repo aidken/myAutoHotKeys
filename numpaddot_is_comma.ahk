@@ -76,10 +76,10 @@ return
 ; Must double tap CapsLock to toggle CapsLock mode on or off.
 CapsLock::
     KeyWait, CapsLock                                                   ; Wait forever until Capslock is released.
-    KeyWait, CapsLock, D T0.01                                          ; ErrorLevel = 1 if CapsLock not down within 0.01 seconds.
+    KeyWait, CapsLock, D T0.1                                           ; ErrorLevel = 1 if CapsLock not down within 0.1 seconds.
     if ((ErrorLevel = 0) && (A_PriorKey = "CapsLock") )                 ; Is a double tap on CapsLock?
         {
-         SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"  ; Toggle the state of CapsLock LED
+            SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "Off"  ; Toggle the state of CapsLock LED
         }
 return
 
@@ -127,4 +127,12 @@ Return
 
 CapsLock & c::
     Send , ^c
+Return
+
+CapsLock & y::
+    Send , ^v
+Return
+
+CapsLock & v::
+    Send , ^v
 Return
