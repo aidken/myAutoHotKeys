@@ -137,6 +137,14 @@ CapsLock & v::
     Send , ^v
 Return
 
+; CapsLock & =::
+;     Send , {CtrlDown}{= down}{= up}{CtrlUp}
+; Return
+
+; CapsLock & 1::
+;     Send , {CtrlDown}{1 down}{1 up}{CtrlUp}
+; Return
+
 !Esc::
     Send , {LWinDown}{Space down}{Space up}{LWinUp}
 Return
