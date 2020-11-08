@@ -50,21 +50,10 @@ return
 ; return
 
 ; Shift Numpad Plus shows an equal sign
-+NumpadAdd::
-Send , =
-return
-
-+NumpadSub::
-Send , _
-return
-
-+NumpadDiv::
-Send , (
-return
-
-+NumpadMult::
-Send, )
-return
++NumpadAdd::Send , =
++NumpadSub::Send , _
++NumpadDiv::Send , (
++NumpadMult::Send, )
 
 ; ; https://mogya.com/2011/07/capslockctrl.html
 ; Capslock::Ctrl
@@ -86,56 +75,25 @@ return
 ;================================================================================================
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
 ;================================================================================================
-CapsLock & f::
-    Send , {right}
-Return
+CapsLock & f::Send , {right}
+CapsLock & b::Send , {left}
+CapsLock & n::Send , {down}
+CapsLock & p::Send , {up}
 
-CapsLock & b::
-    Send , {left}
-Return
+CapsLock & a::Send , {home}
+CapsLock & e::Send , {end}
 
-CapsLock & n::
-    Send , {down}
-Return
+CapsLock & d::Send , {delete}
 
-CapsLock & p::
-    Send , {up}
-Return
-
-CapsLock & a::
-    Send , {home}
-Return
-
-CapsLock & e::
-    Send , {end}
-Return
-
-CapsLock & d::
-    Send , {delete}
-Return
-
-CapsLock & g::
-    Send , {esc}
-Return
+CapsLock & g::Send , {esc}
 
 CapsLock & space::
 Return
 
-CapsLock & x::
-    Send , ^x
-Return
-
-CapsLock & c::
-    Send , ^c
-Return
-
-CapsLock & y::
-    Send , ^v
-Return
-
-CapsLock & v::
-    Send , ^v
-Return
+CapsLock & x::Send , ^x
+CapsLock & c::Send , ^c
+CapsLock & y::Send , ^v
+CapsLock & v::Send , ^v
 
 ; CapsLock & =::
 ;     Send , {CtrlDown}{= down}{= up}{CtrlUp}
@@ -145,14 +103,20 @@ Return
 ;     Send , {CtrlDown}{1 down}{1 up}{CtrlUp}
 ; Return
 
-!Esc::
-    Send , {LWinDown}{Space down}{Space up}{LWinUp}
-Return
+; switch input methods
+!Esc::Send , {LWinDown}{Space down}{Space up}{LWinUp}
+!`::Send , {LWinDown}{Space down}{Space up}{LWinUp}
+!Sc29::Send , {LWinDown}{Space down}{Space up}{LWinUp}
 
-!`::
-    Send , {LWinDown}{Space down}{Space up}{LWinUp}
-Return
+; in Excel, Ctrl + j enters an equal sign
+#if WinActive("ahk_class XLMAIN")
+    ^j::Send, =
 
-!Sc29::
-    Send , {LWinDown}{Space down}{Space up}{LWinUp}
-Return
+; in Firefox, Ctrl + Shift + n opens up a incognito window, just like Chrome and Safari
+#if WinActive("ahk_class MozillaWindowClass")
+    ^+n::Send , {CtrlDown}{ShiftDown}p{ShiftUp}{CtrlUp}
+
+#if not WinActive("ahk_exe OUTLOOK.EXE")
+    ^+o::run , outlook.exe
+
+; https://stackoverflow.com/questions/64656235/hotkey-to-run-program-or-activate-toggle
