@@ -41,9 +41,7 @@ SendMode Input              ; Recommended for new scripts due to its superior sp
 
 
 ; https://stackoverflow.com/questions/58062684/autohotkey-modifier-symbol-for-shift-does-not-work
-NumpadDel::
-Send , {shift up}{,}{shift down}
-return
+NumpadDel::Send , {shift up}{,}{shift down}
 
 ; ; do nothing upon alt + Esc
 ; !Esc::
@@ -95,15 +93,7 @@ CapsLock & c::Send , ^c
 CapsLock & y::Send , ^v
 CapsLock & v::Send , ^v
 
-; CapsLock & =::
-;     Send , {CtrlDown}{= down}{= up}{CtrlUp}
-; Return
-
-; CapsLock & 1::
-;     Send , {CtrlDown}{1 down}{1 up}{CtrlUp}
-; Return
-
-; switch input methods
+; Alt + Esc or Alt + ` to switch input methods
 !Esc::Send , {LWinDown}{Space down}{Space up}{LWinUp}
 !`::Send , {LWinDown}{Space down}{Space up}{LWinUp}
 !Sc29::Send , {LWinDown}{Space down}{Space up}{LWinUp}
@@ -116,7 +106,19 @@ CapsLock & v::Send , ^v
 #if WinActive("ahk_class MozillaWindowClass")
     ^+n::Send , {CtrlDown}{ShiftDown}p{ShiftUp}{CtrlUp}
 
-#if not WinActive("ahk_exe OUTLOOK.EXE")
-    ^+o::run , outlook.exe
-
-; https://stackoverflow.com/questions/64656235/hotkey-to-run-program-or-activate-toggle
+; ; ; https://stackoverflow.com/questions/64656235/hotkey-to-run-program-or-activate-toggle
+; ^+o::
+; ; IfWinExist, ahk_class rctrl_renwnd32 ahk_exe OUTLOOK.EXE
+; IfWinExist, ahk_class rctrl_renwnd32 ; ahk_exe OUTLOOK.EXE
+; {
+;     WinActivate  ; Automatically uses the window found above.
+;     ; WinMaximize  ; same
+;     ; Send, Some text.{Enter}
+;     return
+; } else {
+;     run C:\Program Files (x86)\Microsoft Office\root\Office16\OUTLOOK.EXE
+;     ; run C:\Program Files (x86)\Microsoft Office\root\Office16\EXCEL.EXE
+; }
+; return
+; ; November 8th 2020: I could not get this work as I expect. Regular key combo
+; ; such as Win + 1 works just fine.
