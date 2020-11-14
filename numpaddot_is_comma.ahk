@@ -53,9 +53,12 @@ NumpadDel::Send , {shift up}{,}{shift down}
 +NumpadDiv::Send , (
 +NumpadMult::Send, )
 
-; ; https://mogya.com/2011/07/capslockctrl.html
-; Capslock::Ctrl
-; sc03a::Ctrl
+;;; in Emacs, CapsLock is Ctrl
+; https://mogya.com/2011/07/capslockctrl.html
+#IfWinActive ahk_class Emacs
+    Capslock::Ctrl
+    sc03a::Ctrl
+#IfWinActive
 
 ;================================================================================================
 ;  CapsLock processing.  Must double tap CapsLock to toggle CapsLock mode on or off.
@@ -70,6 +73,7 @@ CapsLock::
         }
 return
 
+#IfWinNotActive ahk_class Emacs
 ;================================================================================================
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
 ;================================================================================================
@@ -92,6 +96,7 @@ CapsLock & x::Send , ^x
 CapsLock & c::Send , ^c
 CapsLock & y::Send , ^v
 CapsLock & v::Send , ^v
+#IfWinNotActive
 
 ; Alt + Esc or Alt + ` to switch input methods
 !Esc::Send , {LWinDown}{Space down}{Space up}{LWinUp}
