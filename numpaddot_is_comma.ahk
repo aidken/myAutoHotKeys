@@ -53,7 +53,7 @@ NumpadDel::Send , {shift up}{,}{shift down}
 +NumpadDiv::Send , (
 +NumpadMult::Send, )
 
-;;; in Emacs, CapsLock is Ctrl
+;;; in Emacs and in Visual Studio Code, CapsLock is Ctrl
 ; https://mogya.com/2011/07/capslockctrl.html
 #IfWinActive ahk_class Emacs ahk_exe emacs.exe
     Capslock::Ctrl
@@ -132,10 +132,3 @@ CapsLock & v::Send , ^v
 ; return
 ; ; November 8th 2020: I could not get this work as I expect. Regular key combo
 ; ; such as Win + 1 works just fine.
-
-_is_target() {
-    IfWinActive, ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
-        Return 1
-    IfWinActive, ahk_class Emacs ahk_exe emacs.exe
-        Return 1
-}
