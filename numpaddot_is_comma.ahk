@@ -38,8 +38,6 @@
 SendMode Input              ; Recommended for new scripts due to its superior speed and reliability.
 
 
-
-
 ; https://stackoverflow.com/questions/58062684/autohotkey-modifier-symbol-for-shift-does-not-work
 NumpadDel::Send , {shift up}{,}{shift down}
 
@@ -65,20 +63,33 @@ NumpadDel::Send , {shift up}{,}{shift down}
     sc03a::Ctrl
 #IfWinActive
 
-;================================================================================================
-;  CapsLock processing.  Must double tap CapsLock to toggle CapsLock mode on or off.
-;================================================================================================
-; Must double tap CapsLock to toggle CapsLock mode on or off.
-CapsLock::
-    KeyWait, CapsLock                                                   ; Wait forever until Capslock is released.
-    KeyWait, CapsLock, D T0.1                                           ; ErrorLevel = 1 if CapsLock not down within 0.1 seconds.
-    if ((ErrorLevel = 0) && (A_PriorKey = "CapsLock") )                 ; Is a double tap on CapsLock?
-        {
-            SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "Off"  ; Toggle the state of CapsLock LED
-        }
-return
+#IfWinActive ahk_class keypirinha_wndcls_run
+    ; active with KeyPirinha
+    Ctrl & n::Send , {down}
+    Ctrl & p::Send , {up}
+    Ctrl & f::Send , {right}
+    Ctrl & b::Send , {left}
+    Ctrl & a::Send , {home}
+    Ctrl & e::Send , {end}
+    Ctrl & g::Send , {esc}
+    Ctrl & d::Send , {delete}
 
-#IfWinNotActive ahk_class Emacs
+#IfWinActive
+
+; ;================================================================================================
+; ;  CapsLock processing.  Must double tap CapsLock to toggle CapsLock mode on or off.
+; ;================================================================================================
+; ; Must double tap CapsLock to toggle CapsLock mode on or off.
+; CapsLock::
+;     KeyWait, CapsLock                                                   ; Wait forever until Capslock is released.
+;     KeyWait, CapsLock, D T0.01                                           ; ErrorLevel = 1 if CapsLock not down within 0.1 seconds.
+;     if ((ErrorLevel = 0) && (A_PriorKey = "CapsLock") )                 ; Is a double tap on CapsLock?
+;         {
+;             SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "Off"  ; Toggle the state of CapsLock LED
+;         }
+; return
+
+#IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
 ;================================================================================================
 ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
 ;================================================================================================
@@ -94,14 +105,13 @@ CapsLock & d::Send , {delete}
 
 CapsLock & g::Send , {esc}
 
-CapsLock & space::
-Return
+CapsLock & space::Return
 
 CapsLock & x::Send , ^x
 CapsLock & c::Send , ^c
 CapsLock & y::Send , ^v
 CapsLock & v::Send , ^v
-#IfWinNotActive
+#IfWinActive
 
 ; Alt + Esc or Alt + ` to switch input methods
 !Esc::Send , {LWinDown}{Space down}{Space up}{LWinUp}
