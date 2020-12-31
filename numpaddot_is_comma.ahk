@@ -89,29 +89,29 @@ NumpadDel::Send , {shift up}{,}{shift down}
 ;         }
 ; return
 
-#IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
-;================================================================================================
-; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
-;================================================================================================
-CapsLock & f::Send , {right}
-CapsLock & b::Send , {left}
-CapsLock & n::Send , {down}
-CapsLock & p::Send , {up}
+#If ( ! WinActive("ahk_exe emacs.exe") OR ! WinActive("ahk_exe Code.exe") )
+    ;================================================================================================
+    ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
+    ;================================================================================================
+    sc03a & f::Send , {right}
+    sc03a & b::Send , {left}
+    sc03a & n::Send , {down}
+    sc03a & p::Send , {up}
 
-CapsLock & a::Send , {home}
-CapsLock & e::Send , {end}
+    sc03a & a::Send , {home}
+    sc03a & e::Send , {end}
 
-CapsLock & d::Send , {delete}
+    sc03a & d::Send , {delete}
 
-CapsLock & g::Send , {esc}
+    sc03a & g::Send , {esc}
 
-CapsLock & space::Return
+    sc03a & space::Return
 
-CapsLock & x::Send , ^x
-CapsLock & c::Send , ^c
-CapsLock & y::Send , ^v
-CapsLock & v::Send , ^v
-#IfWinActive
+    sc03a & x::Send , ^x
+    sc03a & c::Send , ^c
+    sc03a & y::Send , ^v
+    sc03a & v::Send , ^v
+#If
 
 ; Alt + Esc or Alt + ` to switch input methods
 !Esc::Send , {LWinDown}{Space down}{Space up}{LWinUp}
