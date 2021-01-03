@@ -121,6 +121,8 @@ NumpadDel::Send , {shift up}{,}{shift down}
 ; in Excel, Ctrl + j enters an equal sign
 #if WinActive("ahk_class XLMAIN")
     ^j::Send, =
+    ^+c::Send , {F2}{CtrlDown}{ShiftDown}{Left}{ShiftUp}c{CtrlUp}{Esc}
+#if
 
 ; in Firefox, Ctrl + Shift + n opens up a incognito window, just like Chrome and Safari
 #if WinActive("ahk_class MozillaWindowClass")
