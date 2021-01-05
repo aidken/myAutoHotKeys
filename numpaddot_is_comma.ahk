@@ -61,6 +61,7 @@ NumpadDel::Send , {shift up}{,}{shift down}
 #IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
     Capslock::Ctrl
     sc03a::Ctrl
+    Ctrl & g::Send , {esc}
 #IfWinActive
 
 #IfWinActive ahk_class keypirinha_wndcls_run
@@ -73,7 +74,6 @@ NumpadDel::Send , {shift up}{,}{shift down}
     Ctrl & e::Send , {end}
     Ctrl & g::Send , {esc}
     Ctrl & d::Send , {delete}
-
 #IfWinActive
 
 ; ;================================================================================================
@@ -127,6 +127,10 @@ NumpadDel::Send , {shift up}{,}{shift down}
 ; in Firefox, Ctrl + Shift + n opens up a incognito window, just like Chrome and Safari
 #if WinActive("ahk_class MozillaWindowClass")
     ^+n::Send , {CtrlDown}{ShiftDown}p{ShiftUp}{CtrlUp}
+
+; in AnyConnect, access specific AP
+#IfWinActive ahk_class #32770 ahk_exe vpnui.exe
+    Ctrl & m::Send , {tab}{tab}{tab}trustedvpn-asiapac.mdlz.com{enter}
 
 ; ; ; https://stackoverflow.com/questions/64656235/hotkey-to-run-program-or-activate-toggle
 ; ^+o::
