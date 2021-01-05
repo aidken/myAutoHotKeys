@@ -76,18 +76,18 @@ NumpadDel::Send , {shift up}{,}{shift down}
     Ctrl & d::Send , {delete}
 #IfWinActive
 
-; ;================================================================================================
-; ;  CapsLock processing.  Must double tap CapsLock to toggle CapsLock mode on or off.
-; ;================================================================================================
-; ; Must double tap CapsLock to toggle CapsLock mode on or off.
-; CapsLock::
-;     KeyWait, CapsLock                                                   ; Wait forever until Capslock is released.
-;     KeyWait, CapsLock, D T0.01                                           ; ErrorLevel = 1 if CapsLock not down within 0.1 seconds.
-;     if ((ErrorLevel = 0) && (A_PriorKey = "CapsLock") )                 ; Is a double tap on CapsLock?
-;         {
-;             SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "Off"  ; Toggle the state of CapsLock LED
-;         }
-; return
+;================================================================================================
+;  CapsLock processing.  Must double tap CapsLock to toggle CapsLock mode on or off.
+;================================================================================================
+; Must double tap CapsLock to toggle CapsLock mode on or off.
+CapsLock::
+    KeyWait, CapsLock                                                   ; Wait forever until Capslock is released.
+    KeyWait, CapsLock, D T0.01                                           ; ErrorLevel = 1 if CapsLock not down within 0.1 seconds.
+        if ((ErrorLevel = 0) && (A_PriorKey = "CapsLock") )                 ; Is a double tap on CapsLock?
+            {
+                SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"  ; Toggle the state of CapsLock LED
+            }
+return
 
 #If ( ! WinActive("ahk_exe emacs.exe") OR ! WinActive("ahk_exe Code.exe") )
     ;================================================================================================
@@ -119,7 +119,7 @@ NumpadDel::Send , {shift up}{,}{shift down}
 !Sc29::Send , {LWinDown}{Space down}{Space up}{LWinUp}
 
 ; in Excel, Ctrl + j enters an equal sign
-#if WinActive("ahk_class XLMAIN")
+#if WinActive("ahk_class XLMAIN ahk_exe EXCEL.EXE")
     ^j::Send, =
     ^+c::Send , {F2}{CtrlDown}{ShiftDown}{Left}{ShiftUp}c{CtrlUp}{Esc}
 #if
