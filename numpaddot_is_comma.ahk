@@ -45,6 +45,10 @@ NumpadDel::Send , {shift up}{,}{shift down}
 ; !Esc::
 ; return
 
+; disable Ctrl + Win + n (which triggers windows narrator.)
+^#n::
+return
+
 ; Shift Numpad Plus shows an equal sign
 +NumpadAdd::Send , =
 +NumpadSub::Send , _
@@ -121,7 +125,7 @@ return
 ; in Excel, Ctrl + j enters an equal sign
 #if WinActive("ahk_class XLMAIN ahk_exe EXCEL.EXE")
     ^j::Send, =
-    ^+c::Send , {F2}{CtrlDown}{ShiftDown}{Left}{ShiftUp}c{CtrlUp}{Esc}
+    ^+j::Send , {F2}{CtrlDown}{ShiftDown}{Left}{ShiftUp}c{CtrlUp}{Esc}
 #if
 
 ; in Firefox, Ctrl + Shift + n opens up a incognito window, just like Chrome and Safari
