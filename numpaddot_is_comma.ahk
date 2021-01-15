@@ -109,7 +109,7 @@ return
 
     sc03a & g::Send , {esc}
 
-    sc03a & space::Return
+    sc03a & space::Send , ^{space}
 
     sc03a & x::Send , ^x
     sc03a & c::Send , ^c
