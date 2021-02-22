@@ -45,6 +45,11 @@ NumpadDel::Send , {shift up}{,}{shift down}
 ; !Esc::
 ; return
 
+; Alt + Esc or Alt + ` to switch input methods
+!Esc::Send , {LWinDown}{Space down}{Space up}{LWinUp}
+!`::Send , {LWinDown}{Space down}{Space up}{LWinUp}
+; !Sc29::Send , {LWinDown}{Space down}{Space up}{LWinUp}
+
 ; disable Ctrl + Win + n (which triggers windows narrator.)
 ^#n::
 return
@@ -97,34 +102,29 @@ CapsLock::
             }
 return
 
-#If ( ! WinActive("ahk_exe emacs.exe") OR ! WinActive("ahk_exe Code.exe") )
-    ;================================================================================================
-    ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
-    ;================================================================================================
-    sc03a & f::Send , {right}
-    sc03a & b::Send , {left}
-    sc03a & n::Send , {down}
-    sc03a & p::Send , {up}
+; #If ( ! WinActive("ahk_exe emacs.exe") OR ! WinActive("ahk_exe Code.exe") )
+;     ;================================================================================================
+;     ; Hot keys with CapsLock modifier.  See https://autohotkey.com/docs/Hotkeys.htm#combo
+;     ;================================================================================================
+;     sc03a & f::Send , {right}
+;     sc03a & b::Send , {left}
+;     sc03a & n::Send , {down}
+;     sc03a & p::Send , {up}
 
-    sc03a & a::Send , {home}
-    sc03a & e::Send , {end}
+;     sc03a & a::Send , {home}
+;     sc03a & e::Send , {end}
 
-    sc03a & d::Send , {delete}
+;     sc03a & d::Send , {delete}
 
-    sc03a & g::Send , {esc}
+;     sc03a & g::Send , {esc}
 
-    sc03a & space::Return
+;     sc03a & space::Send , ^{space}
 
-    sc03a & x::Send , ^x
-    sc03a & c::Send , ^c
-    sc03a & y::Send , ^v
-    sc03a & v::Send , ^v
-#If
-
-; Alt + Esc or Alt + ` to switch input methods
-!Esc::Send , {LWinDown}{Space down}{Space up}{LWinUp}
-!`::Send , {LWinDown}{Space down}{Space up}{LWinUp}
-!Sc29::Send , {LWinDown}{Space down}{Space up}{LWinUp}
+;     sc03a & x::Send , ^x
+;     sc03a & c::Send , ^c
+;     sc03a & y::Send , ^v
+;     sc03a & v::Send , ^v
+; #If
 
 ; in Excel, Ctrl + j enters an equal sign
 #if WinActive("ahk_class XLMAIN ahk_exe EXCEL.EXE")
