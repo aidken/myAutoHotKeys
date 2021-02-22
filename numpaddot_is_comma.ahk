@@ -49,24 +49,28 @@ NumpadDel::Send , {shift up}{,}{shift down}
 ^#n::
 return
 
+; disable Win + k (bluetooth connection))
+#k::
+return
+
 ; Shift Numpad Plus shows an equal sign
 +NumpadAdd::Send , =
 +NumpadSub::Send , _
 +NumpadDiv::Send , (
 +NumpadMult::Send, )
 
-;;; in Emacs and in Visual Studio Code, CapsLock is Ctrl
-; https://mogya.com/2011/07/capslockctrl.html
-#IfWinActive ahk_class Emacs ahk_exe emacs.exe
-    Capslock::Ctrl
-    sc03a::Ctrl
-#IfWinActive
+; ;;; in Emacs and in Visual Studio Code, CapsLock is Ctrl
+; ; https://mogya.com/2011/07/capslockctrl.html
+; #IfWinActive ahk_class Emacs ahk_exe emacs.exe
+;     Capslock::Ctrl
+;     sc03a::Ctrl
+; #IfWinActive
 
-#IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
-    Capslock::Ctrl
-    sc03a::Ctrl
-    Ctrl & g::Send , {esc}
-#IfWinActive
+; #IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
+;     Capslock::Ctrl
+;     sc03a::Ctrl
+;     Ctrl & g::Send , {esc}
+; #IfWinActive
 
 #IfWinActive ahk_class keypirinha_wndcls_run
     ; active with KeyPirinha
@@ -128,7 +132,7 @@ return
     ^+j::Send , {F2}{CtrlDown}{ShiftDown}{Left}{ShiftUp}c{CtrlUp}{Esc}
 #if
 
-; in Firefox, Ctrl + Shift + n opens up a incognito window, just like Chrome and Safari
+; in Firefox, Ctrl + Shift + n opens up an incognito window, just like Chrome and Safari
 #if WinActive("ahk_class MozillaWindowClass")
     ^+n::Send , {CtrlDown}{ShiftDown}p{ShiftUp}{CtrlUp}
 
