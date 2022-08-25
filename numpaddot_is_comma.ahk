@@ -58,6 +58,10 @@ return
 #k::
 return
 
+; disable Win + w (fulscreen snipping)
+#w::
+return
+
 ; Shift Numpad Plus shows an equal sign
 +NumpadAdd::Send , =
 +NumpadSub::Send , _
