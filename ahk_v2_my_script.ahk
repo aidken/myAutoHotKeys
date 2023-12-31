@@ -13,6 +13,7 @@ NumpadDel::Send "{shift up},{shift down}"
 ; Alt + Esc or Alt + ` to switch input methods
 !Esc::Send "{LWinDown}{Space down}{Space up}{LWinUp}"
 !`::Send "{LWinDown}{Space down}{Space up}{LWinUp}"
+!Sc29::Send "{LWinDown}{Space down}{Space up}{LWinUp}"
 
 ; disable Ctrl + Win + n (which triggers windows narrator.)
 ^#n::Send ''
