@@ -51,11 +51,11 @@ if WinActive("ahk_class MozillaWindowClass") {
 
 ; TargetDate := A_Now  ; A_Now is a built-in var that contains current date and time
 Counter := 0
-SearchUntil := 3
+SearchUntil := 15
 
 ; function
 ; https://www.autohotkey.com/docs/v2/Functions.htm
-OpenFile(FileBody, TargetDate, FileExtension, SearchUntil){
+OpenFile(FilePath, FileBody, TargetDate, FileExtension, SearchUntil){
 
     Counter := 0
 
@@ -67,7 +67,7 @@ OpenFile(FileBody, TargetDate, FileExtension, SearchUntil){
         ; string concatenation
         ; https://www.autohotkey.com/docs/v2/Variables.htm#concat
         ; return FileBody . FormatTime(Date, "_yyyy-MM-dd") . FileExtension
-        MsgBox FileBody . FormatTime(TargetDate, "yyyy-MM-dd") . FileExtension
+        MsgBox FilePath . FileBody . FormatTime(TargetDate, "yyyy-MM-dd") . FileExtension
         ; MsgBox FileName("inventory", TargetDate, ".xlsx")
 
         ; DateAdd
@@ -90,19 +90,20 @@ OpenFile(FileBody, TargetDate, FileExtension, SearchUntil){
 }
 
 OpenFileInventory(*){
-    OpenFile "inventory_", A_Now, ".xlsx", SearchUntil
+    OpenFile "./", "inventory_", A_Now, ".xlsx", SearchUntil
 }
 
 OpenFileOverview(*){
-    OpenFile "overview_", A_Now, ".xlsx", SearchUntil
+    OpenFile "./", "overview_", A_Now, ".xlsx", SearchUntil
 }
 
 ; gui example
 ; https://www.autohotkey.com/docs/v2/lib/Gui.htm#Examples
 MyGui := Gui()
+MyGui.Title := "Open file..."
 ; MyGui.Add("Text", , "Open file...")
 MyGui.Add("Button", "default xm", "Open inventory").OnEvent("Click", OpenFileInventory)  ; xm puts it at the bottom left corner.
-MyGui.Add("Button", , "Open overview").OnEvent("Click", OpenFileOverview)  ; xm puts it at the bottom left corner.
+MyGui.Add("Button", , "Open overview").OnEvent("Click", OpenFileOverview)
 MyGui.Add("Button", , "Close").OnEvent("Click", HideGui)
 
 ; Ctrl + Shift + Alt + f shows MyGui panel.
