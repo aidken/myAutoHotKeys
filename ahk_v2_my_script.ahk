@@ -32,6 +32,9 @@ NumpadDel::Send "{shift up},{shift down}"
 ; disable Ctrl + Win + n (which triggers windows narrator.)
 ^#n::Send ''
 
+; disable Win + p (display/projector option)
+#p::Send ''
+
 ; Shift Numpad Plus shows an equal sign
 +NumpadAdd::Send "="
 +NumpadSub::Send "_"
@@ -97,13 +100,27 @@ OpenFileOverview(*){
     OpenFile "./", "overview_", A_Now, ".xlsx", SearchUntil
 }
 
+StartAppXyzzy(*) {
+	Run "C:\Program Files (x86)\xyzzy\xyzzycli.exe"
+    HideGui()
+}
+
+StartAppEmacs(*) {
+	Run "C:\Program Files\emacs\bin\runemacs.exe"
+    HideGui()
+}
+
+
+
 ; gui example
 ; https://www.autohotkey.com/docs/v2/lib/Gui.htm#Examples
 MyGui := Gui()
-MyGui.Title := "Open file..."
+MyGui.Title := "Open..."
 ; MyGui.Add("Text", , "Open file...")
 MyGui.Add("Button", "default xm", "Open inventory").OnEvent("Click", OpenFileInventory)  ; xm puts it at the bottom left corner.
 MyGui.Add("Button", , "Open overview").OnEvent("Click", OpenFileOverview)
+MyGui.Add("Button", , "Xyzzy").OnEvent("Click", StartAppXyzzy)
+MyGui.Add("Button", , "Emacs").OnEvent("Click", StartAppEmacs)
 MyGui.Add("Button", , "Close").OnEvent("Click", HideGui)
 
 ; Ctrl + Shift + Alt + f shows MyGui panel.
@@ -112,3 +129,23 @@ MyGui.Add("Button", , "Close").OnEvent("Click", HideGui)
 HideGui(*){
     MyGui.hide
 }
+
+; enter today's date
+JapaneseWeekDay(WeekDayNumber) {
+    if WeekDayNumber < 1 or WeekDayNumber > 7 {
+        throw ValueError(WeekDayNumber . " should be between 1 and 7.")
+    }
+    else {
+        Switch WeekDayNumber {
+            Case 1: return '日'
+            Case 2: return '月'
+            Case 3: return '火'
+            Case 4: return '水'
+            Case 5: return '木'
+            Case 6: return '金'
+            Case 7: return '土'
+        }
+    }
+}
+Hotstring "::etoday", FormatTime(, "LongDate")
+Hotstring "::jtoday", FormatTime(, "yyyy年M月d日(" . JapaneseWeekDay(FormatTime(, "WDay")) . ")")
