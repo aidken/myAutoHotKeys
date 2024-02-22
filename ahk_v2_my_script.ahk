@@ -34,6 +34,7 @@ NumpadDel::Send "{shift up},{shift down}"
 
 ; disable Win + p (display/projector option)
 #p::Send ''
+#c::RunCalculator
 
 ; Shift Numpad Plus shows an equal sign
 +NumpadAdd::Send "="
@@ -106,11 +107,32 @@ StartAppXyzzy(*) {
 }
 
 StartAppEmacs(*) {
-	Run "C:\Program Files\emacs\bin\runemacs.exe"
-    HideGui()
+    if not ProcessExist("emacs.exe")
+        {
+	        Run "C:\Program Files\emacs\bin\runemacs.exe"
+        }
+    else
+        {
+            WinActivate
+            HideGui()
+        }
 }
 
-
+RunCalculator(*){
+    if not WinExist("Calculator") {
+        run "Calc"
+        sleep 2000
+        WinActivate("Calculator")
+    }
+    else {
+        if not WinActive("Calculator") {
+            WinActivate("Calculator")
+        }
+        else {
+            WinMinimize("Calculator")
+        }
+    }
+}
 
 ; gui example
 ; https://www.autohotkey.com/docs/v2/lib/Gui.htm#Examples
