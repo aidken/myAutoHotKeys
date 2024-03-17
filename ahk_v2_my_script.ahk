@@ -35,6 +35,7 @@ NumpadDel::Send "{shift up},{shift down}"
 ; disable Win + p (display/projector option)
 #p::Send ''
 #c::RunCalculator
+#f::RunDoubleCommander
 
 ; Shift Numpad Plus shows an equal sign
 +NumpadAdd::Send "="
@@ -130,6 +131,34 @@ RunCalculator(*){
         }
         else {
             WinMinimize("Calculator")
+        }
+    }
+}
+
+RunDoubleCommander(*){
+
+    MsgBox "running..."
+
+    if not ProcessExist("doublecmd.exe") {
+        MsgBox "Double Commander not running."
+        run "C:\Program Files\Double Commander\doublecmd.exe"
+    }
+    else {
+        if WinActive("ahk_class TTOTAL_CMD") {
+            MsgBox "Double Commander active. hiding it."
+            WinHide ; Use the window found by WinActive.
+        }
+        else {
+            if WinExist("ahk_class TTOTAL_CMD") {
+                MsgBox "Double Commander exists. activating it."
+                WinActivate ; Use the window found by WinExist.
+            }
+            else {
+                if ( PID := ProcessExist("doublecmd.exe") ) {
+                    ; MsgBox "Double Commander process exists."
+                    WinActivate "Double Commander 1.0.11~272"
+                }
+            }
         }
     }
 }
